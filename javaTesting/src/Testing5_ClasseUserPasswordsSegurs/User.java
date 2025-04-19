@@ -13,8 +13,10 @@ public class User {
 
     public User(String nom, String password) {
         this.nom = nom;
-        this.password = password; // insegura !!!
+        // this.password = password; // insegura !!!
         this.salt = PasswordUtils.genSalt();
+        //falta fer hash amb salt del password !!
+        this.password = PasswordUtils.hashedPassword(password, this.salt);
     }
 
 
@@ -26,12 +28,12 @@ public class User {
         this.nom = nom;
     }
 
-    public String getPassword() {
-        return password;
+    public boolean verifyPassword(String passwordEntered) {
+        return PasswordUtils.verifyUserPassword(passwordEntered, salt, password);
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = PasswordUtils.hashedPassword(password, salt);
     }
 
 }

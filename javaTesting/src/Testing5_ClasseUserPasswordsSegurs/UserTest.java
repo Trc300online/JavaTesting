@@ -12,6 +12,9 @@ public class UserTest {
         assertTrue(usuari != null);
 
         assertEquals(usuari.getNom(), "Toni");
-        assertEquals(usuari.getPassword(), "secret");
+        // assertEquals(usuari.getPassword(), "secret");
+
+        assertTrue(usuari.verifyPassword("secret"));
+        
     }
 }
