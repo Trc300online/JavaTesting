@@ -2,9 +2,7 @@ package Testing7_TestingAmbCollections;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -36,6 +34,9 @@ public class SimpleCollectionTest {
         List<String> diesSetmana = new ArrayList<>();
         List<String> diesFeina = new ArrayList<>();
         List<String> diesCapDeSetmana = new ArrayList<>();
+        List<String> diesSenars = new ArrayList<>();
+        List<String> calculDies = new ArrayList<>();
+
 
         initDiesFeiners(diesFeina);
 
@@ -56,6 +57,68 @@ public class SimpleCollectionTest {
 
         assertEquals(7, diesSetmana.size());
         assertTrue(diesSetmana.containsAll(diesCapDeSetmana));
+
+        diesSenars.addAll(diesSetmana);
+
+        assertTrue(diesSenars.contains("dimarts"));
+
+        diesSenars.remove(1);
+
+        assertFalse(diesSenars.contains("dimarts"));
+
+        diesSenars.remove("dijous");
+
+        assertFalse(diesSenars.contains("dijous"));
+
+        List<String> diesFeinersSenars = new ArrayList();
+
+        diesFeinersSenars.addAll(diesSenars);
+
+        diesFeinersSenars.removeAll(diesCapDeSetmana);
+
+        assertTrue(diesFeinersSenars.size() == 3);
+
+        assertFalse(diesFeinersSenars.contains("dissabte"));
+
+        calculDies.addAll(diesSetmana);
+
+        assertTrue(calculDies.containsAll(diesFeina));
+        assertTrue(calculDies.containsAll(diesCapDeSetmana));
+
+        calculDies.clear();
+
+        assertTrue(calculDies.isEmpty());
+
+        calculDies.addAll(diesSetmana);
+
+        calculDies.removeAll(diesCapDeSetmana);
+
+        assertEquals(5, calculDies.size());
+    }
+
+    @Test
+    public void provesAmbMapsTest(){
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("fons", "negre");
+        map.put("menus", "blau");
+        map.put("dialeg", "verd");
+
+        assertEquals(map.size(), 3);
+
+        assertTrue(map.containsKey("menus"));
+        assertTrue(map.containsValue("negre"));
+
+        map.remove("dialeg");
+
+        assertEquals(map.size(), 2);
+
+        map.remove("clauNoExistent");
+
+        assertEquals(map.size(), 2);
+
+        assertEquals(map.get("fons"), "negre");
     }
 
     public void initDiesFeiners(List<String> dies) {
@@ -64,6 +127,20 @@ public class SimpleCollectionTest {
         dies.add("dimecres");
         dies.add("dijous");
         dies.add("divendres");
+
+    }
+
+    @Test
+    public void provesSetTest() {
+
+        Set<String> dies = new HashSet<>();
+
+        dies.add("dilluns");
+        dies.add("dilluns");
+        dies.add("dilluns");
+
+
+        assertEquals(dies.size(), 1);
 
     }
 }
